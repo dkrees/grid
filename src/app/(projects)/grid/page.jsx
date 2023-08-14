@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
+import { Employees } from "@/app/data/employees";
 
 export default function GridPage() {
 
@@ -12,9 +13,10 @@ export default function GridPage() {
 
   // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
-    {field: 'make', filter: true},
-    {field: 'model', filter: true},
-    {field: 'price'}
+    {field: 'employeeName', filter: true},
+    {field: 'title', filter: true},
+    {field: 'city', filter: true},
+    {field: 'country', filter: true}
   ]);
 
   // DefaultColDef sets props common to all Columns
@@ -25,13 +27,6 @@ export default function GridPage() {
   // Example of consuming Grid Event
   const cellClickedListener = useCallback( event => {
     console.log('cellClicked', event);
-  }, []);
-
-  // Example load data from server
-  useEffect(() => {
-    fetch('https://www.ag-grid.com/example-assets/row-data.json')
-    .then(result => result.json())
-    .then(rowData => setRowData(rowData))
   }, []);
 
   // Example using Grid's API
@@ -52,7 +47,7 @@ export default function GridPage() {
           <AgGridReact
               ref={gridRef} // Ref for accessing Grid's API
 
-              rowData={rowData} // Row Data for Rows
+              rowData={Employees} // Row Data for Rows
               columnDefs={columnDefs} // Column Defs for Columns
               defaultColDef={defaultColDef} // Default Column Properties
 
